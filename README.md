@@ -1,12 +1,3 @@
-```markdown
-# 🎙️ CosyVoice TTS Extension for SillyTavern
-
-<div align="center">
-
-![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
-![SillyTavern](https://img.shields.io/badge/SillyTavern-1.10.0+-green.svg)
-![License](https://img.shields.io/badge/license-MIT-orange.svg)
-
 **一个功能强大的 SillyTavern TTS 扩展，支持 CosyVoice 预设角色和即时语音克隆**
 
 [功能特性](#-功能特性) • [安装指南](#-安装指南) • [使用说明](#-使用说明) • [配置选项](#️-配置选项) • [常见问题](#-常见问题)
@@ -62,7 +53,7 @@
 
 ```bash
 cd SillyTavern/public/scripts/extensions/third-party
-git clone https://github.com/2421534079/cosyvoice-tts-for-SillyTavern.git
+git clone https://github.com/latcia/cosyvoice-tts-for-SillyTavern.git
 
 #### 方法二：手动安装
 
