@@ -1,0 +1,813 @@
+/* CosyVoice TTS Extension Styles v1.1 */
+
+/* ==================== 变量定义 ==================== */
+:root {
+    --cosyvoice-primary: #667eea;
+    --cosyvoice-primary-dark: #5a6fd6;
+    --cosyvoice-secondary: #764ba2;
+    --cosyvoice-success: #10b981;
+    --cosyvoice-danger: #ef4444;
+    --cosyvoice-warning: #f59e0b;
+    --cosyvoice-info: #3b82f6;
+    
+    --cosyvoice-bg: #1a1a2e;
+    --cosyvoice-bg-light: #252542;
+    --cosyvoice-bg-lighter: #2d2d4a;
+    --cosyvoice-text: #e0e0e0;
+    --cosyvoice-text-muted: #9ca3af;
+    --cosyvoice-border: #3d3d5c;
+    
+    --cosyvoice-radius: 12px;
+    --cosyvoice-radius-sm: 8px;
+    --cosyvoice-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --cosyvoice-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== 通知容器 ==================== */
+#cosyvoice-notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100001;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.cosyvoice-notification {
+    padding: 12px 20px;
+    border-radius: var(--cosyvoice-radius-sm);
+    background: var(--cosyvoice-bg-light);
+    color: var(--cosyvoice-text);
+    box-shadow: var(--cosyvoice-shadow);
+    transform: translateX(120%);
+    transition: var(--cosyvoice-transition);
+    pointer-events: auto;
+    max-width: 300px;
+}
+
+.cosyvoice-notification.show {
+    transform: translateX(0);
+}
+
+.cosyvoice-notification.success { border-left: 4px solid var(--cosyvoice-success); }
+.cosyvoice-notification.error { border-left: 4px solid var(--cosyvoice-danger); }
+.cosyvoice-notification.warning { border-left: 4px solid var(--cosyvoice-warning); }
+.cosyvoice-notification.info { border-left: 4px solid var(--cosyvoice-info); }
+
+/* ==================== 悬浮面板 ==================== */
+#cosyvoice-floating-panel {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 10000;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    
+    background: linear-gradient(135deg, var(--cosyvoice-bg) 0%, var(--cosyvoice-bg-light) 100%);
+    border: 1px solid var(--cosyvoice-border);
+    border-radius: var(--cosyvoice-radius);
+    box-shadow: var(--cosyvoice-shadow);
+    
+    transition: var(--cosyvoice-transition);
+    cursor: move;
+}
+
+#cosyvoice-floating-panel:hover {
+    box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
+}
+
+#cosyvoice-floating-panel.dragging {
+    opacity: 0.9;
+    cursor: grabbing;
+}
+
+.cosyvoice-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.cosyvoice-control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--cosyvoice-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+    white-space: nowrap;
+    min-width: 70px;
+}
+
+.cosyvoice-control-btn .icon {
+    font-size: 14px;
+}
+
+.cosyvoice-control-btn .text {
+    font-size: 12px;
+}
+
+.cosyvoice-control-btn.primary {
+    background: linear-gradient(135deg, var(--cosyvoice-primary) 0%, var(--cosyvoice-secondary) 100%);
+    color: white;
+}
+
+.cosyvoice-control-btn.primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cosyvoice-control-btn.primary.generating {
+    background: linear-gradient(135deg, var(--cosyvoice-warning) 0%, #ea580c 100%);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.cosyvoice-control-btn.secondary {
+    background: var(--cosyvoice-bg-lighter);
+    color: var(--cosyvoice-text);
+    border: 1px solid var(--cosyvoice-border);
+}
+
+.cosyvoice-control-btn.secondary:hover:not(:disabled) {
+    background: var(--cosyvoice-bg-light);
+    border-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-control-btn.danger {
+    background: var(--cosyvoice-danger);
+    color: white;
+}
+
+.cosyvoice-control-btn.danger:hover:not(:disabled) {
+    background: #dc2626;
+}
+
+.cosyvoice-control-btn.settings {
+    background: var(--cosyvoice-bg-lighter);
+    color: var(--cosyvoice-text);
+    border: 1px solid var(--cosyvoice-border);
+    min-width: 40px;
+    padding: 8px;
+}
+
+.cosyvoice-control-btn.settings:hover {
+    background: var(--cosyvoice-bg-light);
+    border-color: var(--cosyvoice-primary);
+    transform: rotate(90deg);
+}
+
+.cosyvoice-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.cosyvoice-preset-indicator {
+    text-align: center;
+    font-size: 11px;
+    color: var(--cosyvoice-text-muted);
+    padding: 4px 8px;
+    background: var(--cosyvoice-bg-lighter);
+    border-radius: var(--cosyvoice-radius-sm);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.cosyvoice-preset-indicator .no-preset {
+    color: var(--cosyvoice-warning);
+}
+
+/* ==================== 模态框 ==================== */
+.cosyvoice-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.cosyvoice-modal-content {
+    background: var(--cosyvoice-bg);
+    border-radius: var(--cosyvoice-radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--cosyvoice-shadow);
+    border: 1px solid var(--cosyvoice-border);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cosyvoice-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--cosyvoice-border);
+}
+
+.cosyvoice-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--cosyvoice-text);
+}
+
+.cosyvoice-close-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--cosyvoice-bg-lighter);
+    color: var(--cosyvoice-text);
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cosyvoice-close-btn:hover {
+    background: var(--cosyvoice-danger);
+    color: white;
+}
+
+.cosyvoice-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+/* ==================== 设置区块 ==================== */
+.cosyvoice-section {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--cosyvoice-border);
+}
+
+.cosyvoice-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.cosyvoice-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-subsection {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--cosyvoice-border);
+}
+
+.cosyvoice-subsection h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: var(--cosyvoice-text-muted);
+}
+
+.cosyvoice-setting-item {
+    margin-bottom: 16px;
+}
+
+.cosyvoice-setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.cosyvoice-setting-item > label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--cosyvoice-text);
+    font-weight: 500;
+}
+
+.cosyvoice-setting-item input[type="text"],
+.cosyvoice-setting-item input[type="number"],
+.cosyvoice-setting-item textarea,
+.cosyvoice-setting-item select {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--cosyvoice-bg-lighter);
+    border: 1px solid var(--cosyvoice-border);
+    border-radius: var(--cosyvoice-radius-sm);
+    color: var(--cosyvoice-text);
+    font-size: 14px;
+    transition: var(--cosyvoice-transition);
+    box-sizing: border-box;
+}
+
+.cosyvoice-setting-item input:focus,
+.cosyvoice-setting-item textarea:focus,
+.cosyvoice-setting-item select:focus {
+    outline: none;
+    border-color: var(--cosyvoice-primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.cosyvoice-setting-item textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.cosyvoice-setting-item input[type="range"] {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    background: var(--cosyvoice-bg-lighter);
+    border-radius: 3px;
+    outline: none;
+}
+
+.cosyvoice-setting-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--cosyvoice-primary), var(--cosyvoice-secondary));
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-setting-item input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* ==================== 模式选择 ==================== */
+.cosyvoice-mode-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.cosyvoice-mode-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--cosyvoice-bg-lighter);
+    border: 2px solid var(--cosyvoice-border);
+    border-radius: var(--cosyvoice-radius-sm);
+    color: var(--cosyvoice-text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-mode-tab:hover {
+    border-color: var(--cosyvoice-primary);
+    color: var(--cosyvoice-text);
+}
+
+.cosyvoice-mode-tab.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    border-color: var(--cosyvoice-primary);
+    color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-mode-tab .icon {
+    font-size: 18px;
+}
+
+.cosyvoice-mode-content {
+    padding: 16px;
+    background: var(--cosyvoice-bg-lighter);
+    border-radius: var(--cosyvoice-radius-sm);
+}
+
+.cosyvoice-mode-content.hidden {
+    display: none;
+}
+
+.cosyvoice-speaker-info {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: var(--cosyvoice-radius-sm);
+    font-size: 13px;
+    color: var(--cosyvoice-text-muted);
+}
+
+.cosyvoice-speaker-info strong {
+    color: var(--cosyvoice-primary);
+}
+
+/* ==================== 输入组 ==================== */
+.cosyvoice-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.cosyvoice-input-group input,
+.cosyvoice-input-group select {
+    flex: 1;
+}
+
+.cosyvoice-input-group span {
+    color: var(--cosyvoice-text-muted);
+    font-size: 14px;
+}
+
+/* ==================== 按钮 ==================== */
+.cosyvoice-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--cosyvoice-radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-btn.primary {
+    background: linear-gradient(135deg, var(--cosyvoice-primary), var(--cosyvoice-secondary));
+    color: white;
+}
+
+.cosyvoice-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cosyvoice-btn.secondary {
+    background: var(--cosyvoice-bg-lighter);
+    color: var(--cosyvoice-text);
+    border: 1px solid var(--cosyvoice-border);
+}
+
+.cosyvoice-btn.secondary:hover {
+    border-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-btn.full-width {
+    width: 100%;
+}
+
+.cosyvoice-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== 文件上传 ==================== */
+.cosyvoice-file-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cosyvoice-file-input button {
+    flex: 1;
+}
+
+.cosyvoice-file-status {
+    color: var(--cosyvoice-success);
+    font-size: 18px;
+}
+
+/* ==================== 复选框/单选框 ==================== */
+.cosyvoice-checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.cosyvoice-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cosyvoice-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--cosyvoice-bg-lighter);
+    border: 1px solid var(--cosyvoice-border);
+    border-radius: var(--cosyvoice-radius-sm);
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+    font-size: 13px;
+}
+
+.cosyvoice-radio-item:hover {
+    border-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-radio-item.active {
+    background: linear-gradient(135deg, var(--cosyvoice-primary), var(--cosyvoice-secondary));
+    border-color: transparent;
+    color: white;
+}
+
+.cosyvoice-radio-item input {
+    display: none;
+}
+
+/* ==================== 引号预览 ==================== */
+.cosyvoice-quote-preview {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--cosyvoice-bg-lighter);
+    border-radius: var(--cosyvoice-radius-sm);
+    font-size: 14px;
+    color: var(--cosyvoice-text-muted);
+}
+
+.cosyvoice-quote-preview span {
+    color: var(--cosyvoice-primary);
+    font-weight: 500;
+}
+
+/* ==================== 开关 ==================== */
+.cosyvoice-switch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.cosyvoice-switch-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--cosyvoice-bg-lighter);
+    border-radius: var(--cosyvoice-radius-sm);
+}
+
+.cosyvoice-switch-item span {
+    font-size: 14px;
+    color: var(--cosyvoice-text);
+}
+
+.cosyvoice-switch {
+    position: relative;
+    width: 48px;
+    height: 24px;
+}
+
+.cosyvoice-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.cosyvoice-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--cosyvoice-bg);
+    border-radius: 24px;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-switch input:checked + .cosyvoice-slider {
+    background: linear-gradient(135deg, var(--cosyvoice-primary), var(--cosyvoice-secondary));
+}
+
+.cosyvoice-switch input:checked + .cosyvoice-slider:before {
+    transform: translateX(24px);
+}
+
+/* ==================== 预设列表 ==================== */
+.cosyvoice-preset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.cosyvoice-preset-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--cosyvoice-bg);
+    border: 1px solid var(--cosyvoice-border);
+    border-radius: var(--cosyvoice-radius-sm);
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+}
+
+.cosyvoice-preset-item:hover {
+    border-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-preset-item.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    border-color: var(--cosyvoice-primary);
+}
+
+.cosyvoice-preset-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.cosyvoice-preset-name {
+    font-weight: 600;
+    color: var(--cosyvoice-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cosyvoice-preset-audio {
+    font-size: 12px;
+    color: var(--cosyvoice-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cosyvoice-preset-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.cosyvoice-preset-actions button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: var(--cosyvoice-bg-lighter);
+    color: var(--cosyvoice-text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--cosyvoice-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.cosyvoice-preset-actions button:hover {
+    background: var(--cosyvoice-primary);
+    color: white;
+}
+
+.cosyvoice-preset-delete:hover {
+    background: var(--cosyvoice-danger) !important;
+}
+
+/* ==================== 空状态 ==================== */
+.cosyvoice-empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--cosyvoice-text-muted);
+    font-size: 14px;
+}
+
+/* ==================== 隐藏类 ==================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==================== 扩展面板设置 ==================== */
+.cosyvoice-extension-settings {
+    padding: 10px;
+}
+
+.cosyvoice-setting-row {
+    margin-bottom: 10px;
+}
+
+.cosyvoice-setting-row:last-child {
+    margin-bottom: 0;
+}
+
+.cosyvoice-setting-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* ==================== 滚动条样式 ==================== */
+.cosyvoice-modal-body::-webkit-scrollbar,
+.cosyvoice-preset-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cosyvoice-modal-body::-webkit-scrollbar-track,
+.cosyvoice-preset-list::-webkit-scrollbar-track {
+    background: var(--cosyvoice-bg);
+    border-radius: 3px;
+}
+
+.cosyvoice-modal-body::-webkit-scrollbar-thumb,
+.cosyvoice-preset-list::-webkit-scrollbar-thumb {
+    background: var(--cosyvoice-border);
+    border-radius: 3px;
+}
+
+.cosyvoice-modal-body::-webkit-scrollbar-thumb:hover,
+.cosyvoice-preset-list::-webkit-scrollbar-thumb:hover {
+    background: var(--cosyvoice-primary);
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 768px) {
+    #cosyvoice-floating-panel {
+        right: 10px;
+        left: auto;
+        transform: translateY(-50%);
+    }
+    
+    .cosyvoice-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .cosyvoice-control-btn {
+        min-width: 60px;
+        padding: 6px 10px;
+    }
+    
+    .cosyvoice-control-btn .text {
+        display: none;
+    }
+    
+    .cosyvoice-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .cosyvoice-radio-group {
+        flex-direction: column;
+    }
+    
+    .cosyvoice-mode-tabs {
+        flex-direction: column;
+    }
+}
