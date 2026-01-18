@@ -62,8 +62,7 @@
 
 ```bash
 cd SillyTavern/public/scripts/extensions/third-party
-git clone https://github.com/your-username/st-cosyvoice-tts.git
-```
+git clone https://github.com/2421534079/cosyvoice-tts-for-SillyTavern.git
 
 #### 方法二：手动安装
 
